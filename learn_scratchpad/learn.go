@@ -5,6 +5,21 @@ import (
 	"sort"
 )
 
+func main() {
+	x := []int{3, 1, 7, 5, 0, 45, 34, 28, 89}
+	s := []string{"Virat", "Rohit", "AB", "Ajinkya", "MS"}
+	sort.Ints(x)
+	fmt.Println(x)
+	sort.Strings(s)
+	fmt.Println(s)
+}
+
+/*
+import (
+	"fmt"
+	"sort"
+)
+
 type person struct {
 	Name string
 	Age  int
@@ -15,6 +30,7 @@ type ByAge []person
 func (a ByAge) Len() int           { return len(a) }
 func (a ByAge) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a ByAge) Less(i, j int) bool { return a[i].Age < a[j].Age }
+
 func main() {
 	x := []person{{"Virat", 30}, {"AB", 31}, {"Ajinkya", 29}}
 
@@ -22,20 +38,6 @@ func main() {
 
 	fmt.Println(x)
 
-}
-
-/*
-func main() {
-	x := []int{3, 1, 7, 5, 0, 45, 34, 28, 89}
-	s := []string{"Virat", "Rohit", "AB", "Ajinkya", "MS"}
-	sort.Ints(x)
-	fmt.Println(x)
-	sort.Strings(s)
-	fmt.Println(s)
-	//	sort.Reverse(sort.IntSlice(x))
-	//	fmt.Println(x)
-	sort.Search(45, func(i int) bool { return x[i] >= 42 })
-	fmt.Println(s)
 }
 
 /*
