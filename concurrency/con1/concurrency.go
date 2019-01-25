@@ -42,7 +42,7 @@ func main() {
 		}(url)
 	}
 
-	fmt.Println("routines are scheduled... ")
+	fmt.Println("routines are scheduled ... ")
 	var biggest homePageSize
 
 	for i, _ := range urls {
