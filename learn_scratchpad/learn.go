@@ -2,8 +2,284 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
 
+type person struct {
+	Name string
+	Age  int
+}
+
+type ByAge []person
+
+func (a ByAge) Len() int           { return len(a) }
+func (a ByAge) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByAge) Less(i, j int) bool { return a[i].Age < a[j].Age }
+func main() {
+	x := []person{{"Virat", 30}, {"AB", 31}, {"Ajinkya", 29}}
+
+	sort.Sort(ByAge(x))
+
+	fmt.Println(x)
+
+}
+
+/*
+func main() {
+	x := []int{3, 1, 7, 5, 0, 45, 34, 28, 89}
+	s := []string{"Virat", "Rohit", "AB", "Ajinkya", "MS"}
+	sort.Ints(x)
+	fmt.Println(x)
+	sort.Strings(s)
+	fmt.Println(s)
+	//	sort.Reverse(sort.IntSlice(x))
+	//	fmt.Println(x)
+	sort.Search(45, func(i int) bool { return x[i] >= 42 })
+	fmt.Println(s)
+}
+
+/*
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type person struct {
+	First string
+	Last  string
+	Age   int
+}
+
+func main() {
+	x := []person{{"Virat", "Kohli", 29},
+		{"Ajinkya", "Rahane", 29},
+	}
+
+	bs, err := json.Marshal(x)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(bs))
+
+	var y [10]person
+	z := y[:2]
+
+	err = json.Unmarshal(bs, &z)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(z)
+
+}
+
+/*
+func main() {
+	s := "My experience and knowledge need a “LANGUAGE” upgradation"
+	fmt.Println(s)
+	fmt.Println(strings.ToUpper(s))
+	fmt.Println(strings.Replace(s, " ", "-", -1))
+
+}
+
+/*
+type rect struct {
+	l float64
+	b float64
+}
+
+type circ struct {
+	r float64
+}
+
+type measure interface {
+	area() float64
+}
+
+func geometry(m measure) float64 {
+	return m.area()
+}
+
+func (a rect) area() float64 {
+	return a.l * a.b
+}
+
+func (b circ) area() float64 {
+	return math.Pi * b.r * b.r
+}
+
+func main() {
+	x := rect{10, 20}
+	y := circ{10}
+	fmt.Println(geometry(x))
+	fmt.Println(geometry(y))
+}
+
+/*
+func main() {
+	for i := 10; i <= 100; i++ {
+		fmt.Println(i % 4)
+	}
+}
+
+/*
+func sum(args ...int) int {
+	sum := 0
+	for _, v := range args {
+		sum += v
+	}
+	return sum
+}
+
+func even(f func(args ...int) int, args ...int) int {
+	xi := []int{}
+	for _, v := range args {
+		if v%2 == 0 {
+			xi = append(xi, v)
+		}
+	}
+
+	return f(xi...)
+}
+
+func odd(f func(args ...int) int, args ...int) int {
+	xi := []int{}
+	for _, v := range args {
+		if v%2 == 1 {
+			xi = append(xi, v)
+		}
+	}
+
+	return f(xi...)
+}
+
+func main() {
+	x := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
+
+	s1 := sum(x...)
+	fmt.Println(s1)
+	s2 := even(sum, x...)
+	fmt.Println(s2)
+	s3 := odd(sum, x...)
+	fmt.Println(s3)
+
+}
+
+/*
+type Request struct {
+	args       []int
+	f          func([]int) int
+	resultChan chan int
+}
+
+func sum(args []int) int {
+	sum := 0
+	for _, v := range args {
+		sum += v
+	}
+
+	return sum
+}
+
+func server(req chan *Request) {
+	request := <-req
+
+	for _, v := range request.args {
+		fmt.Println(v)
+	}
+	sum := request.f(request.args)
+	req <- request
+	request.resultChan <- sum
+}
+
+func main() {
+	ChannelRequests := make(chan *Request)
+	request := &Request{[]int{10, 20, 30}, sum, make(chan int)}
+
+	ChannelRequests <- request
+
+	go server(ChannelRequests)
+
+	<-ChannelRequests
+	fmt.Println("Reply: ", <-request.resultChan)
+
+}
+
+/*
+type homePageSize struct {
+	url  string
+	size int
+}
+
+func main() {
+	urls := []string{
+		"https://www.amazon.in",
+		"https://www.apple.com",
+		"https://www.google.com",
+		"https://www.microsoft.com",
+	}
+
+	results := make(chan homePageSize)
+	for _, url := range urls {
+		go func(url string) {
+			res, err := http.Get(url)
+			if err != nil {
+				panic(err)
+			}
+
+			defer res.Body.Close()
+
+			bs, err := ioutil.ReadAll(res.Body)
+			if err != nil {
+				fmt.Println("Error")
+				panic(err)
+			}
+
+			results <- homePageSize{
+				url:  url,
+				size: len(bs),
+			}
+		}(url)
+	}
+
+	fmt.Println("routines are scheduled... ")
+	var biggest homePageSize
+
+	for i, _ := range urls {
+		result := <-results
+		fmt.Println(i, "results:", result)
+		if result.size > biggest.size {
+			biggest = result
+		}
+	}
+
+	fmt.Println("Biggest gome page is: ", biggest.url)
+}
+
+/*
+import (
+	"fmt"
+)
+
+func main() {
+	m := map[int]map[string]int{
+		1: map[string]int{
+			"Vinayak": 29,
+			"Pallavi": 28,
+		},
+		2: map[string]int{
+			"Josh":  21,
+			"merry": 35,
+		},
+	}
+
+	if el, ok := m[1]; ok {
+		fmt.Println(el["Pallavi"], el["Vinayak"])
+	}
+}
+
+/*
 type Node struct {
 	data int
 	next *Node
