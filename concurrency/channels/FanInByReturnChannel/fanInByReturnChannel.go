@@ -20,12 +20,14 @@ func fanIn(s1, s2 <-chan string) <-chan string {
 	fanIn := make(chan string)
 	go func() {
 		for {
+			// <- <- we are returning from channel to a channel
 			fanIn <- <-s1
 		}
 	}()
 
 	go func() {
 		for {
+			// <- <- we are returning from channel to a channel
 			fanIn <- <-s2
 		}
 	}()
