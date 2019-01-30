@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"runtime"
+)
 
 func main() {
 	generator := func(done <-chan interface{}, values ...int) <-chan int {
@@ -58,4 +61,6 @@ func main() {
 	for i := range pipeline {
 		fmt.Println(i)
 	}
+
+	fmt.Println("Num of Goroutines: ", runtime.NumGoroutine())
 }
