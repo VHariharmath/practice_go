@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	take := func(done <-chan string, valueStream <-chan string, Num int) <-chan string {
+	take := func(done <-chan interface{}, valueStream <-chan string, Num int) <-chan string {
 		takeStream := make(chan string)
 		go func() {
 			defer close(takeStream)
@@ -21,7 +21,7 @@ func main() {
 		return takeStream
 	}
 
-	repeatFn := func(done <-chan string, values ...string) <-chan string {
+	repeatFn := func(done <-chan interface{}, values ...string) <-chan string {
 		valueStream := make(chan string)
 		go func() {
 			defer close(valueStream)
@@ -40,7 +40,7 @@ func main() {
 		return valueStream
 	}
 
-	done := make(chan string)
+	done := make(chan interface{})
 	defer close(done)
 	var message string
 	for v := range take(done, repeatFn(done, "Hello", "How", "are", "you", "?"), 5) {
