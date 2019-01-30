@@ -51,8 +51,8 @@ func main() {
 
 	done := make(chan interface{})
 	defer close(done)
-
-	intStream := generator(done, 1, 2, 3, 4, 5)
+	s := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	intStream := generator(done, s...)
 	pipeline := multiply(done, add(done, multiply(done, intStream, 1), 2), 3)
 
 	for i := range pipeline {
