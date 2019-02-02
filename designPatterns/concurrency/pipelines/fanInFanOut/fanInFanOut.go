@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"runtime"
 	"sync"
+	"time"
 )
 
 type isPrime struct {
@@ -78,23 +79,7 @@ func main() {
 
 		return multiplexedStream
 	}
-	/*
-		take := func(done <-chan interface{}, valueStream <-chan interface{}) <-chan interface{} {
-			takeStream := make(chan interface{})
-			go func() {
-				defer close(takeStream)
-				for v := range valueStream {
-					select {
-					case <-done:
-						return
-					case takeStream <- v:
-					}
-				}
 
-			}()
-			return takeStream
-		}
-	*/
 	repeatFn := func(done <-chan interface{}, fn func() int) <-chan int {
 		valueStream := make(chan int)
 		go func() {
@@ -114,10 +99,12 @@ func main() {
 	done := make(chan interface{})
 	defer close(done)
 
-	rand := func() int { return rand.Intn(1000) }
+	start := time.Now()
+	rand := func() int { return rand.Intn(1000000) }
 	randStream := repeatFn(done, rand)
-	primeStream := fanIn(done, fanOut(done, randStream, 1000))
+	primeStream := fanIn(done, fanOut(done, randStream, 10000))
 	for v := range primeStream {
 		fmt.Printf("%v is %v and divisor = %v\n", v.num, v.status, v.divisor)
 	}
+	fmt.Println("Time taken: ", time.Since(start))
 }
