@@ -81,7 +81,7 @@ func main() {
 	timeTaken := time.Now()
 
 	rand := func() interface{} { return rand.Intn(10000) }
-	for v := range take(done, primeFinder(done, repeatFn(done, rand), 10)) {
+	for v := range take(done, primeFinder(done, repeatFn(done, rand), 1000)) {
 		fmt.Println(v)
 	}
 
