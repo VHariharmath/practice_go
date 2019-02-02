@@ -28,4 +28,22 @@ func main() {
 	for k, v := range m {
 		fmt.Println(k, v)
 	}
+
+	if v, ok := m["Karun"]; ok {
+		fmt.Println("Delting Karun, value: ", v)
+		delete(m, "Karun")
+	}
+
+	if v, ok := m["MS"]; ok {
+		fmt.Println("Delting MS, value: ", v)
+		delete(m, "Karun")
+	} else {
+		fmt.Println("MS not found in the squad")
+	}
+
+	fmt.Println("Squal after deleting a member")
+	for k, v := range m {
+		fmt.Println(k, v)
+	}
+
 }
