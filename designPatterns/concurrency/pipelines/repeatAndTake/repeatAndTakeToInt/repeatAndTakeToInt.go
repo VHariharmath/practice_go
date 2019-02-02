@@ -3,22 +3,28 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"time"
 )
 
 type isPrime struct {
-	num    int
-	status bool
+	num     int
+	status  bool
+	divisor int
 }
 
 func main() {
 	prime := func(num int) isPrime {
-		for i := 2; i < num/2; num++ {
+		i := 2
+		v := isPrime{num, true, num}
+		for ; i < num/2; i++ {
 			if num%i == 0 {
-				return isPrime{num, false}
+				v = isPrime{num, false, i}
+				break
 			}
 		}
-		return isPrime{num, true}
+		return v
 	}
+
 	primeFinder := func(done <-chan interface{}, valueStream <-chan interface{}, Num int) <-chan interface{} {
 		primeStream := make(chan interface{})
 		go func() {
@@ -72,8 +78,12 @@ func main() {
 	done := make(chan interface{})
 	defer close(done)
 
+	timeTaken := time.Now()
+
 	rand := func() interface{} { return rand.Intn(10000) }
 	for v := range take(done, primeFinder(done, repeatFn(done, rand), 10)) {
 		fmt.Println(v)
 	}
+
+	fmt.Println("Total time taken to execute: ", time.Since(timeTaken))
 }
