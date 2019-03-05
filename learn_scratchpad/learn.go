@@ -1,10 +1,83 @@
 package main
 
-import (
-	"fmt"
-	"sort"
-)
+import "fmt"
 
+func addOneToElements(slice []byte) {
+	for i := 0; i < len(slice); i++ {
+		slice[i]++
+	}
+}
+
+func deleteElementFromSlice(slice []byte) []byte {
+	return slice[0 : len(slice)-1]
+}
+
+func main() {
+	var buffer [256]byte
+	slice := buffer[20:30]
+
+	for i := 0; i < len(slice); i++ {
+		slice[i] = byte(i)
+	}
+	addOneToElements(slice)
+	fmt.Println(len(slice))
+
+	newSlice := deleteElementFromSlice(slice)
+	fmt.Println(len(newSlice))
+}
+
+/*
+func main() {
+
+	resp, err := http.Get("https://www.amazon.in/")
+	if err != nil {
+		fmt.Println("Failed to get")
+		return
+	}
+
+	bs, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Failed to get")
+		return
+	}
+
+	scanner := bufio.NewScanner(resp.Body)
+	resp.Body.Close()
+	fmt.Println(bs)
+}
+
+/*
+func deleteOneElementFromSlice(slice *[]byte) {
+	sliceptr := *slice
+	*slice = sliceptr[0 : len(sliceptr)-1]
+}
+func addOneToElements(slice []byte) {
+
+	for i := 0; i < len(slice); i++ {
+		slice[i]++
+	}
+}
+func main() {
+	var buffer [256]byte
+	slice := buffer[20:30]
+
+	for i := 0; i < len(slice); i++ {
+		slice[i] = byte(i)
+	}
+
+	fmt.Println(slice)
+
+	addOneToElements(slice)
+
+	fmt.Println(slice)
+
+	fmt.Println("Before:\t", slice, len(slice))
+	deleteOneElementFromSlice(&slice)
+	fmt.Println("After:\t", slice, len(slice))
+
+}
+
+/*
 func main() {
 	x := []int{3, 1, 7, 5, 0, 45, 34, 28, 89}
 	s := []string{"Virat", "Rohit", "AB", "Ajinkya", "MS"}
