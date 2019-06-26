@@ -8,6 +8,10 @@ type Stack struct {
 	elements []*TreeNode
 }
 
+type Queue struct {
+	elements []*TreeNode
+}
+
 type TreeNode struct {
 	key       int
 	leftNode  *TreeNode
@@ -39,6 +43,39 @@ func (s *Stack)IsEmpty() bool {
 	return len(s.elements) == 0 
 }
 
+func (q *Queue)Enqueue(item *TreeNode) {
+	q.elements = append(q.elements, item)
+
+}
+
+func (q *Queue)Dequeue() *TreeNode{
+	if q.IsEmptyQueue() {
+		return nil
+	}
+
+	ele := q.elements[0]
+	q.elements = q.elements[1:len(q.elements)]
+
+	return ele
+}
+
+func (q *Queue)IsEmptyQueue() bool{
+	return len(q.elements) == 0
+}
+
+func CreateQueue() *Queue {
+	q := &Queue{}
+	q.elements = make([]*TreeNode, 0)
+	return q
+}
+
+func CreateStack() *Stack {
+	s := &Stack{}
+	s.elements = make([]*TreeNode, 0)
+	return s
+}
+
+
 func insertNode(rootNode *TreeNode, newNode *TreeNode) {
 	if newNode.key < rootNode.key {
 		if rootNode.leftNode == nil {
@@ -66,7 +103,7 @@ func (bst *BinarySearchTree)InsertElement(key int) {
 }
 
 func (bst *BinarySearchTree)PreOrderTraversal() {
-	s := &Stack{}
+	s := CreateStack()
 
 	root := bst.rootNode
 
@@ -85,6 +122,77 @@ func (bst *BinarySearchTree)PreOrderTraversal() {
 			
 	}
 }
+
+func (bst *BinarySearchTree)InOrderTraversal() {
+	s := CreateStack()
+	root := bst.rootNode
+
+	for true {
+		for root != nil {
+			s.Push(root)
+			root = root.leftNode
+		}
+
+		if s.IsEmpty() {
+			break
+		}
+
+		root = s.Pop()
+		fmt.Println(root.key)
+		root = root.rightNode
+	} 
+}
+
+func (bst *BinarySearchTree)PostOrderTraversal() {
+	s := CreateStack()
+	root := bst.rootNode
+
+	s.Push(root)
+	var prev *TreeNode
+
+	for !s.IsEmpty() {
+		cur := s.Pop()
+
+		if prev == nil || prev.leftNode == cur || prev.rightNode == cur {
+			if cur.leftNode != nil {
+				s.Push(cur.leftNode)
+			} else if cur.rightNode != nil {
+				s.Push(cur.rightNode)
+			}
+		} else if cur.leftNode == prev {
+				if cur.rightNode != nil {
+					s.Push(cur.rightNode)
+				}
+		} else {
+			fmt.Println(cur.key)
+			s.Pop()
+		}
+		prev = cur
+	}
+}
+
+func (bst *BinarySearchTree)LevelOrderTraversal() {
+	q := CreateQueue()
+
+	root := bst.rootNode
+	if root == nil {
+		return
+	}
+	q.Enqueue(root)
+
+	for !q.IsEmptyQueue() {
+		temp := q.Dequeue()
+		fmt.Println(temp.key)
+		if temp.leftNode != nil {
+			q.Enqueue(temp.leftNode)
+		}
+
+		if temp.rightNode != nil {
+			q.Enqueue(temp.rightNode)
+		}
+	}
+}
+
 func main() {
 	bst := &BinarySearchTree{}
 	bst.InsertElement(10)
@@ -96,6 +204,9 @@ func main() {
 	bst.InsertElement(5)
 	bst.InsertElement(7)
 	bst.InsertElement(6)
-	bst.PreOrderTraversal()
+	//bst.PreOrderTraversal()
+	//bst.InOrderTraversal()
+	//bst.PostOrderTraversal()
+	bst.LevelOrderTraversal()
 	
 }
