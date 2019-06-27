@@ -18,7 +18,7 @@ type TreeNode struct {
 	rightNode *TreeNode
 }
 
-type BinarySearchTree struct {
+type BinaryTree struct {
 	rootNode *TreeNode
 }
 
@@ -91,20 +91,20 @@ func insertNode(rootNode *TreeNode, newNode *TreeNode) {
 	}
 }
 
-func (bst *BinarySearchTree) InsertElement(key int) {
+func (bt *BinaryTree) InsertElement(key int) {
 	newNode := &TreeNode{key, nil, nil}
-	if bst.rootNode == nil {
-		bst.rootNode = newNode
+	if bt.rootNode == nil {
+		bt.rootNode = newNode
 		return
 	} else {
-		insertNode(bst.rootNode, newNode)
+		insertNode(bt.rootNode, newNode)
 	}
 }
 
-func (bst *BinarySearchTree) PreOrderTraversal() {
+func (bt *BinaryTree) PreOrderTraversal() {
 	s := CreateStack()
 
-	root := bst.rootNode
+	root := bt.rootNode
 
 	for true {
 		for root != nil {
@@ -122,9 +122,9 @@ func (bst *BinarySearchTree) PreOrderTraversal() {
 	}
 }
 
-func (bst *BinarySearchTree) InOrderTraversal() {
+func (bt *BinaryTree) InOrderTraversal() {
 	s := CreateStack()
-	root := bst.rootNode
+	root := bt.rootNode
 
 	for true {
 		for root != nil {
@@ -142,9 +142,9 @@ func (bst *BinarySearchTree) InOrderTraversal() {
 	}
 }
 
-func (bst *BinarySearchTree) PostOrderTraversal() {
+func (bt *BinaryTree) PostOrderTraversal() {
 	s := CreateStack()
-	root := bst.rootNode
+	root := bt.rootNode
 
 	s.Push(root)
 	var prev *TreeNode
@@ -170,10 +170,10 @@ func (bst *BinarySearchTree) PostOrderTraversal() {
 	}
 }
 
-func (bst *BinarySearchTree) LevelOrderTraversal() {
+func (bt *BinaryTree) LevelOrderTraversal() {
 	q := CreateQueue()
 
-	root := bst.rootNode
+	root := bt.rootNode
 	if root == nil {
 		return
 	}
@@ -192,10 +192,10 @@ func (bst *BinarySearchTree) LevelOrderTraversal() {
 	}
 }
 
-func (bst *BinarySearchTree) FindMax() int {
+func (bt *BinaryTree) FindMax() int {
 	q := CreateQueue()
 
-	root := bst.rootNode
+	root := bt.rootNode
 	if root == nil {
 		return 0
 	}
@@ -222,10 +222,10 @@ func (bst *BinarySearchTree) FindMax() int {
 	return max
 }
 
-func (bst *BinarySearchTree) SearchAnElement(key int) bool {
+func (bt *BinaryTree) SearchAnElement(key int) bool {
 	q := CreateQueue()
 
-	root := bst.rootNode
+	root := bt.rootNode
 	if root == nil {
 		return false
 	}
@@ -249,13 +249,13 @@ func (bst *BinarySearchTree) SearchAnElement(key int) bool {
 }
 
 /*
-func (bst *BinarySearchTree) InsertElement(key int) {
+func (bt *BinaryTree) InsertElement(key int) {
 	newNode := &TreeNode{}
 	newNode.key = key
 
-	root := bst.rootNode
+	root := bt.rootNode
 	if root == nil {
-		bst.rootNode = newNode
+		bt.rootNode = newNode
 		return
 	}
 
@@ -281,9 +281,9 @@ func (bst *BinarySearchTree) InsertElement(key int) {
 }
 */
 
-func (bst *BinarySearchTree) SizeofBinaryTree() int {
+func (bt *BinaryTree) SizeofBinaryTree() int {
 
-	root := bst.rootNode
+	root := bt.rootNode
 	if root == nil {
 		return 0
 	}
@@ -308,9 +308,9 @@ func (bst *BinarySearchTree) SizeofBinaryTree() int {
 	return count
 }
 
-func (bst *BinarySearchTree) PrintLevelOrderinReverse() {
+func (bt *BinaryTree) PrintLevelOrderinReverse() {
 
-	root := bst.rootNode
+	root := bt.rootNode
 	if root == nil {
 		return
 	}
@@ -340,9 +340,9 @@ func (bst *BinarySearchTree) PrintLevelOrderinReverse() {
 
 }
 
-func (bst *BinarySearchTree) LevelsofBinaryTree() int {
+func (bt *BinaryTree) LevelsofBinaryTree() int {
 
-	root := bst.rootNode
+	root := bt.rootNode
 	if root == nil {
 		return 0
 	}
@@ -375,10 +375,10 @@ func (bst *BinarySearchTree) LevelsofBinaryTree() int {
 	return level
 }
 
-func (bst *BinarySearchTree) lastNodeInBT() *TreeNode {
+func (bt *BinaryTree) lastNodeInBT() *TreeNode {
 	q := CreateQueue()
 	temp := &TreeNode{}
-	root := bst.rootNode
+	root := bt.rootNode
 
 	if root == nil {
 		return nil
@@ -399,8 +399,8 @@ func (bst *BinarySearchTree) lastNodeInBT() *TreeNode {
 	return temp
 }
 
-func (bst *BinarySearchTree) NumberOfFullNodes() int {
-	root := bst.rootNode
+func (bt *BinaryTree) NumberOfFullNodes() int {
+	root := bt.rootNode
 	if root == nil {
 		return 0
 	}
@@ -428,8 +428,8 @@ func (bst *BinarySearchTree) NumberOfFullNodes() int {
 	return count
 }
 
-func (bst *BinarySearchTree) NumberOfHalfNodes() int {
-	root := bst.rootNode
+func (bt *BinaryTree) NumberOfHalfNodes() int {
+	root := bt.rootNode
 	if root == nil {
 		return 0
 	}
@@ -457,8 +457,8 @@ func (bst *BinarySearchTree) NumberOfHalfNodes() int {
 	return count
 }
 
-func (bst *BinarySearchTree) MaxSumAt() (int, int) {
-	root := bst.rootNode
+func (bt *BinaryTree) MaxSumAt() (int, int) {
+	root := bt.rootNode
 	if root == nil {
 		return 0, 0
 	}
@@ -498,9 +498,9 @@ func (bst *BinarySearchTree) MaxSumAt() (int, int) {
 	return MaxSum, MaxLevel
 }
 
-func (bst BinarySearchTree)PrintPathsToLeafNode() {
+func (bt BinaryTree)PrintPathsToLeafNode() {
 
-	root := bst.rootNode
+	root := bt.rootNode
 	if root == nil {
 		return
 	}
@@ -536,38 +536,38 @@ func printPathsRecur(root *TreeNode, path []int, pathLen int) {
 }
 
 func main() {
-	bst := &BinarySearchTree{}
-	bst.InsertElement(10)
-	bst.InsertElement(9)
-	bst.InsertElement(11)
-	bst.InsertElement(8)
-	bst.InsertElement(15)
-	bst.InsertElement(12)
-	bst.InsertElement(5)
-	bst.InsertElement(7)
-	bst.InsertElement(6)
-	bst.InsertElement(1)
-	//bst.PreOrderTraversal()
-	//bst.InOrderTraversal()
-	//bst.PostOrderTraversal()
-	//bst.LevelOrderTraversal()
+	bt := &BinaryTree{}
+	bt.InsertElement(10)
+	bt.InsertElement(9)
+	bt.InsertElement(11)
+	bt.InsertElement(8)
+	bt.InsertElement(15)
+	bt.InsertElement(12)
+	bt.InsertElement(5)
+	bt.InsertElement(7)
+	bt.InsertElement(6)
+	bt.InsertElement(1)
+	//bt.PreOrderTraversal()
+	bt.InOrderTraversal()
+	//bt.PostOrderTraversal()
+	//bt.LevelOrderTraversal()
 
-	//fmt.Println (bst.FindMax())
+	//fmt.Println (bt.FindMax())
 
-	//fmt.Println(bst.SearchAnElement(12))
-	//fmt.Println(bst.SearchAnElement(123))
-	//fmt.Println(bst.SizeofBinaryTree())
+	//fmt.Println(bt.SearchAnElement(12))
+	//fmt.Println(bt.SearchAnElement(123))
+	//fmt.Println(bt.SizeofBinaryTree())
 
-	//bst.PrintLevelOrderinReverse()
+	//bt.PrintLevelOrderinReverse()
 
-	//fmt.Println(bst.LevelsofBinaryTree())
+	//fmt.Println(bt.LevelsofBinaryTree())
 
-	//fmt.Println(bst.lastNodeInBT().key)
+	//fmt.Println(bt.lastNodeInBT().key)
 
-	//fmt.Println(bst.NumberOfFullNodes())
-	//fmt.Println(bst.NumberOfHalfNodes())
+	//fmt.Println(bt.NumberOfFullNodes())
+	//fmt.Println(bt.NumberOfHalfNodes())
 
-	//fmt.Println(bst.MaxSumAt())
+	//fmt.Println(bt.MaxSumAt())
 
-	bst.PrintPathsToLeafNode()
+	//bt.PrintPathsToLeafNode()
 }
