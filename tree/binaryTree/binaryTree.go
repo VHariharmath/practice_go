@@ -74,7 +74,7 @@ func CreateStack() *Stack {
 	s.elements = make([]*TreeNode, 0)
 	return s
 }
-
+/*
 func insertNode(rootNode *TreeNode, newNode *TreeNode) {
 	if newNode.key < rootNode.key {
 		if rootNode.leftNode == nil {
@@ -100,7 +100,7 @@ func (bt *BinaryTree) InsertElement(key int) {
 		insertNode(bt.rootNode, newNode)
 	}
 }
-
+*/
 func (bt *BinaryTree) PreOrderTraversal() {
 	s := CreateStack()
 
@@ -248,7 +248,7 @@ func (bt *BinaryTree) SearchAnElement(key int) bool {
 	return false
 }
 
-/*
+
 func (bt *BinaryTree) InsertElement(key int) {
 	newNode := &TreeNode{}
 	newNode.key = key
@@ -279,7 +279,6 @@ func (bt *BinaryTree) InsertElement(key int) {
 		}
 	}
 }
-*/
 
 func (bt *BinaryTree) SizeofBinaryTree() int {
 
@@ -569,5 +568,5 @@ func main() {
 
 	//fmt.Println(bt.MaxSumAt())
 
-	//bt.PrintPathsToLeafNode()
+	bt.PrintPathsToLeafNode()
 }
