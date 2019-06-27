@@ -22,11 +22,11 @@ type BinarySearchTree struct {
 	rootNode *TreeNode
 }
 
-func (s *Stack)Push(item *TreeNode) {
+func (s *Stack) Push(item *TreeNode) {
 	s.elements = append(s.elements, item)
 }
 
-func (s *Stack)Pop() *TreeNode {
+func (s *Stack) Pop() *TreeNode {
 
 	if s.IsEmpty() {
 		return nil
@@ -39,16 +39,16 @@ func (s *Stack)Pop() *TreeNode {
 	return ele
 }
 
-func (s *Stack)IsEmpty() bool {
-	return len(s.elements) == 0 
+func (s *Stack) IsEmpty() bool {
+	return len(s.elements) == 0
 }
 
-func (q *Queue)Enqueue(item *TreeNode) {
+func (q *Queue) Enqueue(item *TreeNode) {
 	q.elements = append(q.elements, item)
 
 }
 
-func (q *Queue)Dequeue() *TreeNode{
+func (q *Queue) Dequeue() *TreeNode {
 	if q.IsEmptyQueue() {
 		return nil
 	}
@@ -59,7 +59,7 @@ func (q *Queue)Dequeue() *TreeNode{
 	return ele
 }
 
-func (q *Queue)IsEmptyQueue() bool{
+func (q *Queue) IsEmptyQueue() bool {
 	return len(q.elements) == 0
 }
 
@@ -75,7 +75,6 @@ func CreateStack() *Stack {
 	return s
 }
 
-/*
 func insertNode(rootNode *TreeNode, newNode *TreeNode) {
 	if newNode.key < rootNode.key {
 		if rootNode.leftNode == nil {
@@ -92,7 +91,7 @@ func insertNode(rootNode *TreeNode, newNode *TreeNode) {
 	}
 }
 
-func (bst *BinarySearchTree)InsertElement(key int) {
+func (bst *BinarySearchTree) InsertElement(key int) {
 	newNode := &TreeNode{key, nil, nil}
 	if bst.rootNode == nil {
 		bst.rootNode = newNode
@@ -101,29 +100,29 @@ func (bst *BinarySearchTree)InsertElement(key int) {
 		insertNode(bst.rootNode, newNode)
 	}
 }
-*/
-func (bst *BinarySearchTree)PreOrderTraversal() {
+
+func (bst *BinarySearchTree) PreOrderTraversal() {
 	s := CreateStack()
 
 	root := bst.rootNode
 
 	for true {
-			for root != nil {
-				fmt.Println(root.key)
-				s.Push(root)
-				root = root.leftNode
-			}
+		for root != nil {
+			fmt.Println(root.key)
+			s.Push(root)
+			root = root.leftNode
+		}
 
-			if s.IsEmpty() {
-				break
-			}
-			root = s.Pop()
-			root = root.rightNode
-			
+		if s.IsEmpty() {
+			break
+		}
+		root = s.Pop()
+		root = root.rightNode
+
 	}
 }
 
-func (bst *BinarySearchTree)InOrderTraversal() {
+func (bst *BinarySearchTree) InOrderTraversal() {
 	s := CreateStack()
 	root := bst.rootNode
 
@@ -140,10 +139,10 @@ func (bst *BinarySearchTree)InOrderTraversal() {
 		root = s.Pop()
 		fmt.Println(root.key)
 		root = root.rightNode
-	} 
+	}
 }
 
-func (bst *BinarySearchTree)PostOrderTraversal() {
+func (bst *BinarySearchTree) PostOrderTraversal() {
 	s := CreateStack()
 	root := bst.rootNode
 
@@ -160,9 +159,9 @@ func (bst *BinarySearchTree)PostOrderTraversal() {
 				s.Push(cur.rightNode)
 			}
 		} else if cur.leftNode == prev {
-				if cur.rightNode != nil {
-					s.Push(cur.rightNode)
-				}
+			if cur.rightNode != nil {
+				s.Push(cur.rightNode)
+			}
 		} else {
 			fmt.Println(cur.key)
 			s.Pop()
@@ -171,7 +170,7 @@ func (bst *BinarySearchTree)PostOrderTraversal() {
 	}
 }
 
-func (bst *BinarySearchTree)LevelOrderTraversal() {
+func (bst *BinarySearchTree) LevelOrderTraversal() {
 	q := CreateQueue()
 
 	root := bst.rootNode
@@ -193,7 +192,7 @@ func (bst *BinarySearchTree)LevelOrderTraversal() {
 	}
 }
 
-func (bst *BinarySearchTree)FindMax() int {
+func (bst *BinarySearchTree) FindMax() int {
 	q := CreateQueue()
 
 	root := bst.rootNode
@@ -210,7 +209,7 @@ func (bst *BinarySearchTree)FindMax() int {
 		if max < temp.key {
 			max = temp.key
 		}
-		
+
 		if temp.leftNode != nil {
 			q.Enqueue(temp.leftNode)
 		}
@@ -223,7 +222,7 @@ func (bst *BinarySearchTree)FindMax() int {
 	return max
 }
 
-func (bst *BinarySearchTree)SearchAnElement(key int) bool {
+func (bst *BinarySearchTree) SearchAnElement(key int) bool {
 	q := CreateQueue()
 
 	root := bst.rootNode
@@ -249,7 +248,8 @@ func (bst *BinarySearchTree)SearchAnElement(key int) bool {
 	return false
 }
 
-func (bst *BinarySearchTree)InsertElement(key int) {
+/*
+func (bst *BinarySearchTree) InsertElement(key int) {
 	newNode := &TreeNode{}
 	newNode.key = key
 
@@ -279,9 +279,10 @@ func (bst *BinarySearchTree)InsertElement(key int) {
 		}
 	}
 }
+*/
 
-func (bst *BinarySearchTree)SizeofBinaryTree() int {
-	
+func (bst *BinarySearchTree) SizeofBinaryTree() int {
+
 	root := bst.rootNode
 	if root == nil {
 		return 0
@@ -307,11 +308,11 @@ func (bst *BinarySearchTree)SizeofBinaryTree() int {
 	return count
 }
 
-func (bst *BinarySearchTree)PrintLevelOrderinReverse() {
-	
+func (bst *BinarySearchTree) PrintLevelOrderinReverse() {
+
 	root := bst.rootNode
 	if root == nil {
-		return 
+		return
 	}
 
 	q := CreateQueue()
@@ -321,9 +322,9 @@ func (bst *BinarySearchTree)PrintLevelOrderinReverse() {
 
 	for !q.IsEmptyQueue() {
 		temp := q.Dequeue()
-		
+
 		s.Push(temp)
-		
+
 		if temp.leftNode != nil {
 			q.Enqueue(temp.leftNode)
 		}
@@ -339,8 +340,8 @@ func (bst *BinarySearchTree)PrintLevelOrderinReverse() {
 
 }
 
-func (bst *BinarySearchTree)LevelsofBinaryTree() int {
-	
+func (bst *BinarySearchTree) LevelsofBinaryTree() int {
+
 	root := bst.rootNode
 	if root == nil {
 		return 0
@@ -354,7 +355,7 @@ func (bst *BinarySearchTree)LevelsofBinaryTree() int {
 
 	for !q.IsEmptyQueue() {
 		temp := q.Dequeue()
-		
+
 		if temp == nil {
 			if !q.IsEmptyQueue() {
 				q.Enqueue(nil)
@@ -364,7 +365,7 @@ func (bst *BinarySearchTree)LevelsofBinaryTree() int {
 			if temp.leftNode != nil {
 				q.Enqueue(temp.leftNode)
 			}
-	
+
 			if temp.rightNode != nil {
 				q.Enqueue(temp.rightNode)
 			}
@@ -374,7 +375,7 @@ func (bst *BinarySearchTree)LevelsofBinaryTree() int {
 	return level
 }
 
-func (bst *BinarySearchTree)lastNodeInBT() *TreeNode{
+func (bst *BinarySearchTree) lastNodeInBT() *TreeNode {
 	q := CreateQueue()
 	temp := &TreeNode{}
 	root := bst.rootNode
@@ -398,6 +399,105 @@ func (bst *BinarySearchTree)lastNodeInBT() *TreeNode{
 	return temp
 }
 
+func (bst *BinarySearchTree) NumberOfFullNodes() int {
+	root := bst.rootNode
+	if root == nil {
+		return 0
+	}
+
+	q := CreateQueue()
+	q.Enqueue(root)
+	count := 0
+
+	for !q.IsEmptyQueue() {
+		temp := q.Dequeue()
+
+		if temp.leftNode != nil && temp.rightNode != nil {
+			count++
+		}
+
+		if temp.leftNode != nil {
+			q.Enqueue(temp.leftNode)
+		}
+
+		if temp.rightNode != nil {
+			q.Enqueue(temp.rightNode)
+		}
+	}
+
+	return count
+}
+
+func (bst *BinarySearchTree) NumberOfHalfNodes() int {
+	root := bst.rootNode
+	if root == nil {
+		return 0
+	}
+
+	q := CreateQueue()
+	q.Enqueue(root)
+	count := 0
+
+	for !q.IsEmptyQueue() {
+		temp := q.Dequeue()
+
+		if (temp.rightNode == nil && temp.leftNode != nil) || (temp.leftNode == nil && temp.rightNode != nil) {
+			count++
+		}
+
+		if temp.leftNode != nil {
+			q.Enqueue(temp.leftNode)
+		}
+
+		if temp.rightNode != nil {
+			q.Enqueue(temp.rightNode)
+		}
+	}
+
+	return count
+}
+
+func (bst *BinarySearchTree) MaxSumAt() (int, int) {
+	root := bst.rootNode
+	if root == nil {
+		return 0, 0
+	}
+
+	q := CreateQueue()
+	MaxSum, MaxLevel := 0, 0
+	CurSum, level := 0, 0
+
+	q.Enqueue(root)
+	q.Enqueue(nil)
+
+	for !q.IsEmptyQueue() {
+		temp := q.Dequeue()
+
+		if temp == nil {
+			if CurSum > MaxSum {
+				MaxSum = CurSum
+				MaxLevel = level
+			}
+			level++
+			CurSum = 0
+			if !q.IsEmptyQueue() {
+				q.Enqueue(nil)
+			}
+		} else {
+			CurSum += temp.key
+			if temp.leftNode != nil {
+				q.Enqueue(temp.leftNode)
+			}
+
+			if temp.rightNode != nil {
+				q.Enqueue(temp.rightNode)
+			}
+		}
+	}
+
+	return MaxSum, MaxLevel
+}
+
 func main() {
 	bst := &BinarySearchTree{}
 	bst.InsertElement(10)
@@ -409,11 +509,12 @@ func main() {
 	bst.InsertElement(5)
 	bst.InsertElement(7)
 	bst.InsertElement(6)
+	bst.InsertElement(1)
 	//bst.PreOrderTraversal()
 	//bst.InOrderTraversal()
 	//bst.PostOrderTraversal()
 	//bst.LevelOrderTraversal()
-	
+
 	//fmt.Println (bst.FindMax())
 
 	//fmt.Println(bst.SearchAnElement(12))
@@ -424,5 +525,10 @@ func main() {
 
 	//fmt.Println(bst.LevelsofBinaryTree())
 
-	fmt.Println(bst.lastNodeInBT().key)
+	//fmt.Println(bst.lastNodeInBT().key)
+
+	//fmt.Println(bst.NumberOfFullNodes())
+	//fmt.Println(bst.NumberOfHalfNodes())
+
+	fmt.Println(bst.MaxSumAt())
 }
