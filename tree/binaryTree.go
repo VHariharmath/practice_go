@@ -498,6 +498,43 @@ func (bst *BinarySearchTree) MaxSumAt() (int, int) {
 	return MaxSum, MaxLevel
 }
 
+func (bst BinarySearchTree)PrintPathsToLeafNode() {
+
+	root := bst.rootNode
+	if root == nil {
+		return
+	}
+	path := make([]int, 0)
+	pathLen := 0
+
+	path = append(path, root.key)
+	pathLen++
+
+	if root.leftNode == nil && root.rightNode == nil {
+		fmt.Println(path, pathLen)
+	} else {
+		printPathsRecur(root.leftNode, path, pathLen)
+		printPathsRecur(root.rightNode, path, pathLen)
+	}
+}
+
+func printPathsRecur(root *TreeNode, path []int, pathLen int) {
+	if root == nil {
+		return
+	}
+
+	path = append(path, root.key)
+	pathLen++
+	
+
+	if root.leftNode == nil && root.rightNode == nil {
+		fmt.Println(path, pathLen)
+	} else {
+		printPathsRecur(root.leftNode, path, pathLen)
+		printPathsRecur(root.rightNode, path, pathLen)
+	}
+}
+
 func main() {
 	bst := &BinarySearchTree{}
 	bst.InsertElement(10)
@@ -530,5 +567,7 @@ func main() {
 	//fmt.Println(bst.NumberOfFullNodes())
 	//fmt.Println(bst.NumberOfHalfNodes())
 
-	fmt.Println(bst.MaxSumAt())
+	//fmt.Println(bst.MaxSumAt())
+
+	bst.PrintPathsToLeafNode()
 }
