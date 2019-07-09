@@ -2,11 +2,6 @@ package main
 
 import "fmt"
 
-func swap(a *int, b *int) {
-	temp := *a
-	*a = *b
-	*b = temp
-}
 func selectionSort(a []int) []int {
 	len := len(a)
 
@@ -18,7 +13,7 @@ func selectionSort(a []int) []int {
 			}
 		}
 
-		swap(&a[minIdx], &a[i])
+		a[minIdx], a[i] = a[i], a[minIdx]
 	}
 
 	return a
