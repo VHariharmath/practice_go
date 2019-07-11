@@ -46,6 +46,66 @@ func (listhead *listHead) insertFront(key int) {
 	listhead.head = item
 }
 
+func (listhead *listHead) findMiddleNode() *node {
+	if listhead.head == nil {
+		return nil
+	}
+
+	slowPtr := listhead.head
+	fastPtr := listhead.head
+
+	for fastPtr != nil && fastPtr.next != nil {
+		fastPtr = fastPtr.next.next
+		slowPtr = slowPtr.next
+	}
+
+	return slowPtr
+}
+
+func (listhead *listHead) detectAndRemoveLoop() bool {
+	if listhead.head == nil {
+		fmt.Println("No loop")
+		return false
+	}
+	slowPtr := listhead.head
+	fastPtr := listhead.head
+	for slowPtr != nil && fastPtr != nil && fastPtr.next != nil {
+		slowPtr = slowPtr.next
+		fastPtr = fastPtr.next.next
+		if slowPtr == fastPtr {
+			fmt.Println("Loop node = ", slowPtr.data)
+			removeLoop(slowPtr, listhead.head)
+			return true
+		}
+
+	}
+
+	return false
+}
+
+func removeLoop(loopNode *node, listhead *node) {
+
+	ptr1 := listhead
+	var ptr2 *node
+	for true {
+		ptr2 = loopNode
+
+		for ptr2.next != loopNode && ptr2.next != ptr1 {
+			ptr2 = ptr2.next
+		}
+
+		if ptr2.next == ptr1 {
+			fmt.Println(ptr2.data)
+			break
+		}
+
+		ptr1 = ptr1.next
+	}
+
+	ptr2.next = nil
+
+}
+
 func main() {
 	ll := &listHead{}
 	ll.insertTail(6)
@@ -53,10 +113,14 @@ func main() {
 	ll.insertTail(8)
 	ll.insertTail(9)
 	ll.insertFront(5)
-	ll.insertFront(4)
-	ll.insertFront(3)
-	ll.insertFront(2)
-	ll.insertFront(1)
 
+	fmt.Println("Elements in the list")
+	ll.printList()
+
+	fmt.Println("Middile element = ", ll.findMiddleNode().data)
+
+	ll.head.next.next.next.next.next = ll.head.next.next
+
+	fmt.Println(ll.detectAndRemoveLoop())
 	ll.printList()
 }
