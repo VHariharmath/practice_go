@@ -106,6 +106,56 @@ func removeLoop(loopNode *node, listhead *node) {
 
 }
 
+func (listhead *listHead) deleteNode(key int) {
+	root := listhead.head
+
+	if root == nil {
+		fmt.Println("List is empty")
+		return
+	}
+
+	if root.data == key {
+		listhead.head = root.next
+		return
+	}
+
+	var prev *node
+
+	for root != nil && root.data != key {
+		prev = root
+		root = root.next
+	}
+
+	prev.next = root.next
+}
+
+func (listhead *listHead) deleteRear() {
+	root := listhead.head
+	if root == nil {
+		fmt.Println("List is empty")
+		return
+	}
+
+	var prev *node
+	for root.next != nil {
+		prev = root
+		root = root.next
+	}
+
+	prev.next = nil
+
+}
+
+func (listhead *listHead) deleteFront() {
+	root := listhead.head
+	if root == nil {
+		fmt.Println("List is empty")
+		return
+	} else {
+		listhead.head = root.next
+	}
+}
+
 func main() {
 	ll := &listHead{}
 	ll.insertTail(6)
@@ -117,10 +167,19 @@ func main() {
 	fmt.Println("Elements in the list")
 	ll.printList()
 
-	fmt.Println("Middile element = ", ll.findMiddleNode().data)
+	/*
+		fmt.Println("Middile element = ", ll.findMiddleNode().data)
 
-	ll.head.next.next.next.next.next = ll.head.next.next
+		ll.head.next.next.next.next.next = ll.head.next.next
 
-	fmt.Println(ll.detectAndRemoveLoop())
+		fmt.Println(ll.detectAndRemoveLoop())
+		ll.printList()
+
+		ll.deleteNode(8)
+
+		ll.deleteRear()
+	*/
+	ll.deleteFront()
+	fmt.Println("after deleting ")
 	ll.printList()
 }
