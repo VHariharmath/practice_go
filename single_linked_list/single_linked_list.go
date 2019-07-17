@@ -156,6 +156,23 @@ func (listhead *listHead) deleteFront() {
 	}
 }
 
+func (listhead *listHead)reverseList() {
+	root := listhead.head
+	if root == nil {
+		fmt.Println("List is empty")
+		return
+	}
+
+	var prev, temp *node
+	for root != nil {
+		temp = root.next
+		root.next = prev
+		prev = root
+		root = temp 
+	}
+	listhead.head = prev
+}
+
 func main() {
 	ll := &listHead{}
 	ll.insertTail(6)
@@ -178,8 +195,14 @@ func main() {
 		ll.deleteNode(8)
 
 		ll.deleteRear()
+	
+		ll.deleteFront()
+		fmt.Println("after deleting ")
+		ll.printList()
 	*/
-	ll.deleteFront()
-	fmt.Println("after deleting ")
+
+	ll.reverseList()
+	fmt.Println("List after reversing")
 	ll.printList()
+
 }
