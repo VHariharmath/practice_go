@@ -1,28 +1,214 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
-func addOneToElements(slice []byte) {
+func sockMerchant(n int, ar []int) int {
+	var max int
+	for i := 0; i < n; i++ {
+		if max < ar[i] {
+			max = ar[i]
+		}
+	}
+
+	set := make([]int, max+1)
+	var count int
+
+	for i := 0; i < n; i++ {
+		set[ar[i]]++
+	}
+
+	for i := 0; i < n; i++ {
+		count += set[ar[i]] / 2
+		set[ar[i]] = 0
+	}
+	return count
+}
+
+func main() {
+	ar := []int{10, 20, 20, 10, 10, 30, 50, 10, 20}
+
+	fmt.Println(sockMerchant(len(ar), ar))
+}
+
+/*
+func isValidIP(ipAddr string) bool {
+
+	strSlice := strings.Split(ipAddr, ".")
+
+	if len(strSlice) < 4 {
+		fmt.Println("only", len(strSlice), "present")
+		return false
+	}
+
+	for _, x := range strSlice {
+		a, err := strconv.Atoi(x)
+		if err != nil {
+			fmt.Println(x, "is not a number")
+			return false
+		}
+
+		if a >= 0 && a <= 255 {
+			continue
+		}
+
+	}
+
+	return true
+}
+
+func main() {
+
+	addresses := []string{"192.168.0.1", "192.168.0", "goh", "", "10.0.5.25", "125.512.100.abc"}
+
+	for _, ipAddr := range addresses {
+
+		if isValidIP(ipAddr) {
+			fmt.Println("Valid IP")
+		} else {
+			fmt.Println("Invalid IP")
+		}
+
+	}
+}
+
+/*
+type headNode struct {
+	hn *node
+}
+
+type node struct {
+	data int
+	next *node
+}
+
+func allocNode(item int) *node {
+	return &node{data: item, next: nil}
+}
+
+func (head *headNode) insertRear(item int) *headNode {
+	new := allocNode(item)
+	if new == nil {
+		fmt.Println("Allocation failed")
+		return nil
+	}
+
+	if head.hn == nil {
+		head.hn = new
+		return head
+	}
+
+	temp := head.hn
+	for temp.next != nil {
+		temp = temp.next
+	}
+
+	temp.next = new
+
+	return head
+}
+
+func (head *headNode) insertFront(item int) *headNode {
+	new := allocNode(item)
+	if new == nil {
+		fmt.Println("Allocation failed")
+		return nil
+	}
+
+	if head == nil {
+		return nil
+	} else {
+		new.next = head.hn
+		head.hn = new
+		return head
+	}
+}
+
+func (head *headNode) printList() {
+	temp := head.hn
+	for temp != nil {
+		fmt.Println(temp.data)
+		temp = temp.next
+	}
+}
+
+func (head *headNode) deleteRear() *headNode {
+	temp := head.hn
+	var prev *node
+
+	for temp.next != nil {
+		prev = temp
+		temp = temp.next
+	}
+
+	prev.next = nil
+
+	return head
+}
+
+func (head *headNode) deleteFront() *headNode {
+	temp := head.hn
+	head.hn = temp.next
+
+	return head
+}
+
+func main() {
+	head := &headNode{nil}
+	head = head.insertFront(3)
+	head = head.insertFront(2)
+	head = head.insertFront(1)
+
+	head = head.insertRear(4)
+	head = head.insertRear(5)
+	head.printList()
+
+	log.Println("Delete from Rear")
+	head = head.deleteRear()
+	head.printList()
+
+	log.Println("Delete from Front")
+	head = head.deleteFront()
+	head.printList()
+}
+
+/*
+package main
+
+import (
+	"fmt"
+)
+
+
+func addOneToElements(slice []int) {
 	for i := 0; i < len(slice); i++ {
 		slice[i]++
 	}
 }
 
-func deleteElementFromSlice(slice []byte) []byte {
+func deleteElementFromSlice(slice []int) []int {
 	return slice[0 : len(slice)-1]
 }
 
+func extendSlice(slice []int ) []int {
+	return slice[0: len(slice)+1]
+}
+
 func main() {
-	var buffer [256]byte
+	var buffer [256]int
 	slice := buffer[20:30]
 
 	for i := 0; i < len(slice); i++ {
-		slice[i] = byte(i)
+		slice[i] = i
 	}
 	addOneToElements(slice)
 	fmt.Println(len(slice))
 
 	newSlice := deleteElementFromSlice(slice)
+	fmt.Println(len(newSlice))
+
+	newSlice = extendSlice(newSlice)
 	fmt.Println(len(newSlice))
 }
 
