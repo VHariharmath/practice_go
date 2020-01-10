@@ -4,6 +4,37 @@ import (
 	"fmt"
 )
 
+func numberOfJumps(len int, a []int) int {
+	var jumps, i int
+	for i < len-2 {
+
+		if a[i+2] == 0 {
+			i = i + 2
+			jumps++
+		} else if a[i+2] == 1 && a[i+1] == 0 {
+			i = i + 1
+			jumps++
+		} else {
+			break
+		}
+	}
+
+	if i+2 > len-1 && i+1 <= len-1 {
+		if a[i+1] == 0 {
+			jumps++
+		}
+	}
+
+	return jumps
+}
+
+func main() {
+	a := []int{0, 0, 0, 1, 0, 0}
+
+	fmt.Println(numberOfJumps(len(a), a))
+}
+
+/*
 func sockMerchant(n int, ar []int) int {
 	var max int
 	for i := 0; i < n; i++ {
@@ -27,7 +58,7 @@ func sockMerchant(n int, ar []int) int {
 }
 
 func main() {
-	ar := []int{10, 20, 20, 10, 10, 30, 50, 10, 20}
+	ar := []int{10, 20, 20, 10, 10, 30, 50, 10, 20, 20}
 
 	fmt.Println(sockMerchant(len(ar), ar))
 }
